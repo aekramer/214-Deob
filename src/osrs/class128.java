@@ -52,7 +52,7 @@ public class class128 implements Callable {
          TileItem var6;
          for(var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
             ItemComposition var7 = class300.ItemDefinition_get(var6.id);
-            long var11 = (long)var7.price;
+            long var11 = (long)var7.value;
             if (var7.isStackable == 1) {
                var11 *= var6.quantity < Integer.MAX_VALUE ? (long)(var6.quantity + 1) : (long)var6.quantity;
             }

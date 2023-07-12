@@ -43,12 +43,12 @@ public class ScriptEvent extends Node {
       }
 
       ItemComposition var9 = class300.ItemDefinition_get(var0);
-      if (var1 > 1 && var9.countobj != null) {
+      if (var1 > 1 && var9.stack_variant_id != null) {
          int var10 = -1;
 
          for(int var11 = 0; var11 < 10; ++var11) {
-            if (var1 >= var9.countco[var11] && var9.countco[var11] != 0) {
-               var10 = var9.countobj[var11];
+            if (var1 >= var9.stack_variant_size[var11] && var9.stack_variant_size[var11] != 0) {
+               var10 = var9.stack_variant_id[var11];
             }
          }
 
@@ -95,17 +95,17 @@ public class ScriptEvent extends Node {
             var23.drawTransBgAt(0, 0);
          }
 
-         int var17 = var9.zoom2d;
+         int var17 = var9.model_zoom;
          if (var5) {
             var17 = (int)(1.5 * (double)var17);
          } else if (var2 == 2) {
             var17 = (int)(1.04 * (double)var17);
          }
 
-         int var18 = var17 * Rasterizer3D.Rasterizer3D_sine[var9.xan2d] >> 16;
-         int var19 = var17 * Rasterizer3D.Rasterizer3D_cosine[var9.xan2d] >> 16;
+         int var18 = var17 * Rasterizer3D.Rasterizer3D_sine[var9.rotation_y] >> 16;
+         int var19 = var17 * Rasterizer3D.Rasterizer3D_cosine[var9.rotation_y] >> 16;
          var22.calculateBoundsCylinder();
-         var22.method4798(0, var9.yan2d, var9.zan2d, var9.xan2d, var9.offsetX2d, var22.height / 2 + var18 + var9.offsetY2d, var19 + var9.offsetY2d);
+         var22.method4798(0, var9.rotation_x, var9.rotation_z, var9.rotation_y, var9.translate_x, var22.height / 2 + var18 + var9.translate_yz, var19 + var9.translate_yz);
          if (var9.notedId != -1) {
             var23.drawTransBgAt(0, 0);
          }

@@ -252,7 +252,7 @@ public class MusicPatchPcmStream extends PcmStream {
                      var8 = false;
                   } else {
                      ItemComposition var6 = class300.ItemDefinition_get(var3.equipment[0] - 512);
-                     var8 = var6.maleModel1 != class208.field2312.field2315 && var6.maleModel2 != class208.field2312.field2315;
+                     var8 = var6.opcode14 != class208.field2312.field2315 && var6.opcode27 != class208.field2312.field2315;
                   }
 
                   if (!var8) {

@@ -315,7 +315,7 @@ public class PlayerComposition {
                var1 = true;
             }
 
-            if (var3 >= 512 && !class300.ItemDefinition_get(var3 - 512).method3959(this.gender)) {
+            if (var3 >= 512 && !class300.ItemDefinition_get(var3 - 512).isDialogueModelCached(this.gender)) {
                var1 = true;
             }
          }
@@ -338,7 +338,7 @@ public class PlayerComposition {
                }
 
                if (var5 >= 512) {
-                  var6 = class300.ItemDefinition_get(var5 - 512).method3960(this.gender);
+                  var6 = class300.ItemDefinition_get(var5 - 512).getDialogueModel(this.gender);
                   if (var6 != null) {
                      var7[var3++] = var6;
                   }

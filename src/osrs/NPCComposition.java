@@ -492,12 +492,12 @@ public class NPCComposition extends DualNode {
          var3.itemId = var4;
          var3.itemQuantity = var5;
          ItemComposition var6 = class300.ItemDefinition_get(var4);
-         var3.modelAngleX = var6.xan2d;
-         var3.modelAngleY = var6.yan2d;
-         var3.modelAngleZ = var6.zan2d;
-         var3.modelOffsetX = var6.offsetX2d;
-         var3.modelOffsetY = var6.offsetY2d;
-         var3.modelZoom = var6.zoom2d;
+         var3.modelAngleX = var6.rotation_y;
+         var3.modelAngleY = var6.rotation_x;
+         var3.modelAngleZ = var6.rotation_z;
+         var3.modelOffsetX = var6.translate_x;
+         var3.modelOffsetY = var6.translate_yz;
+         var3.modelZoom = var6.model_zoom;
          if (var0 == ScriptOpcodes.CC_SETOBJECT_NONUM) {
             var3.itemQuantityMode = 0;
          } else if (var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM | 1 == var6.isStackable) {

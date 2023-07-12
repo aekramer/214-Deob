@@ -218,7 +218,7 @@ public class class60 {
             return 1;
          } else if (var0 == ScriptOpcodes.OC_COST) {
             var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-            Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).price;
+            Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).value;
             return 1;
          } else if (var0 == ScriptOpcodes.OC_STACKABLE) {
             var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
@@ -292,20 +292,20 @@ public class class60 {
                   return 1;
                } else if (var0 == 4214) {
                   var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).maleModel;
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).opcode13;
                   return 1;
                } else if (var0 == 4215) {
                   var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).maleModel1;
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).opcode14;
                   return 1;
                } else if (var0 == 4216) {
                   var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).maleModel2;
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class300.ItemDefinition_get(var3).opcode27;
                   return 1;
                } else if (var0 == 4217) {
                   var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                   var4 = class300.ItemDefinition_get(var3);
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.field2249;
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.opcode75;
                   return 1;
                } else {
                   return 2;

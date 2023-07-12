@@ -3602,20 +3602,20 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi, cla
                   var93 = class300.ItemDefinition_get(var5);
                   var31.modelType = 4;
                   var31.modelId = var5;
-                  var31.modelAngleX = var93.xan2d;
-                  var31.modelAngleY = var93.yan2d;
-                  var31.modelZoom = var93.zoom2d * 100 / var25;
+                  var31.modelAngleX = var93.rotation_y;
+                  var31.modelAngleY = var93.rotation_x;
+                  var31.modelZoom = var93.model_zoom * 100 / var25;
                   Messages.invalidateWidget(var31);
                } else {
                   var31.itemId = var5;
                   var31.itemQuantity = var25;
                   var93 = class300.ItemDefinition_get(var5);
-                  var31.modelAngleX = var93.xan2d;
-                  var31.modelAngleY = var93.yan2d;
-                  var31.modelAngleZ = var93.zan2d;
-                  var31.modelOffsetX = var93.offsetX2d;
-                  var31.modelOffsetY = var93.offsetY2d;
-                  var31.modelZoom = var93.zoom2d;
+                  var31.modelAngleX = var93.rotation_y;
+                  var31.modelAngleY = var93.rotation_x;
+                  var31.modelAngleZ = var93.rotation_z;
+                  var31.modelOffsetX = var93.translate_x;
+                  var31.modelOffsetY = var93.translate_yz;
+                  var31.modelZoom = var93.model_zoom;
                   if (var93.isStackable == 1) {
                      var31.itemQuantityMode = 1;
                   } else {

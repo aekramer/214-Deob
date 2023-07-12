@@ -13,50 +13,50 @@ public class ItemComposition extends DualNode {
    public static EvictingDualNodeHashTable ItemDefinition_cachedModels = new EvictingDualNodeHashTable(50);
    public static EvictingDualNodeHashTable ItemDefinition_cachedSprites = new EvictingDualNodeHashTable(200);
    int id;
-   int model;
+   int inventory_model;
    public String name = "null";
    public short[] recolorFrom;
    public short[] recolorTo;
    public short[] retextureFrom;
    public short[] retextureTo;
-   public int zoom2d = 2000;
-   public int xan2d = 0;
-   public int yan2d = 0;
-   public int zan2d = 0;
-   public int offsetX2d = 0;
-   public int offsetY2d = 0;
+   public int model_zoom = 2000;
+   public int rotation_y = 0;
+   public int rotation_x = 0;
+   public int rotation_z = 0;
+   public int translate_x = 0;
+   public int translate_yz = 0;
    public int isStackable = 0;
-   public int price = 1;
-   public int maleModel = -1;
-   public int maleModel1 = -1;
-   public int maleModel2 = -1;
+   public int value = 1;
+   public int opcode13 = -1;
+   public int opcode14 = -1;
+   public int opcode27 = -1;
    public boolean isMembersOnly = false;
    public String[] groundActions = new String[]{null, null, "Take", null, null};
    public String[] inventoryActions = new String[]{null, null, null, null, "Drop"};
    int shiftClickIndex = -2;
-   int femaleModel = -1;
-   int femaleModel1 = -1;
-   int femaleOffset = 0;
-   int maleHeadModel = -1;
-   int maleHeadModel2 = -1;
-   int field2232 = 0;
-   int femaleModel2 = -1;
-   int femaleHeadModel = -1;
-   int femaleHeadModel2 = -1;
-   int field2236 = -1;
-   int field2237 = -1;
-   int field2218 = -1;
-   int[] countobj;
-   int[] countco;
+   int equipped_model_male_1 = -1;
+   int equipped_model_male_2 = -1;
+   int equipped_model_male_translation_y = 0;
+   int equipped_model_female_1 = -1;
+   int equipped_model_female_2 = -1;
+   int equipped_model_female_translation_y = 0;
+   int equipped_model_male_3 = -1;
+   int equipped_model_female_3 = -1;
+   int equipped_model_male_dialogue_1 = -1;
+   int equipped_model_male_dialogue_2 = -1;
+   int equipped_model_female_dialogue_1 = -1;
+   int equipped_model_female_dialogue_2 = -1;
+   int[] stack_variant_id;
+   int[] stack_variant_size;
    public int note = -1;
    public int noteTemplate = -1;
-   int resizeX = 128;
-   int resizeY = 128;
-   int resizeZ = 128;
-   public int field2238 = 0;
-   public int field2239 = 0;
+   int model_scale_x = 128;
+   int model_scale_y = 128;
+   int model_scale_z = 128;
+   public int ambient = 0;
+   public int contrast = 0;
    public int team = 0;
-   public int field2249 = 0;
+   public int opcode75 = 0;
    IterableNodeHashTable params;
    public boolean isTradable = false;
    int unnotedId = -1;
@@ -69,7 +69,7 @@ public class ItemComposition extends DualNode {
 
    void post() {
       if (this.isStackable == 1) {
-         this.field2249 = 0;
+         this.opcode75 = 0;
       }
 
    }
@@ -85,166 +85,166 @@ public class ItemComposition extends DualNode {
       }
    }
 
-   void decodeNext(Buffer var1, int var2) {
-      if (var2 == 1) {
-         this.model = var1.readUnsignedShort();
-      } else if (var2 == 2) {
-         this.name = var1.readStringCp1252NullTerminated();
-      } else if (var2 == 4) {
-         this.zoom2d = var1.readUnsignedShort();
-      } else if (var2 == 5) {
-         this.xan2d = var1.readUnsignedShort();
-      } else if (var2 == 6) {
-         this.yan2d = var1.readUnsignedShort();
-      } else if (var2 == 7) {
-         this.offsetX2d = var1.readUnsignedShort();
-         if (this.offsetX2d > 32767) {
-            this.offsetX2d -= 65536;
+   void decodeNext(Buffer stream, int opcode) {
+      if (opcode == 1) {
+         this.inventory_model = stream.readUnsignedShort();
+      } else if (opcode == 2) {
+         this.name = stream.readStringCp1252NullTerminated();
+      } else if (opcode == 4) {
+         this.model_zoom = stream.readUnsignedShort();
+      } else if (opcode == 5) {
+         this.rotation_y = stream.readUnsignedShort();
+      } else if (opcode == 6) {
+         this.rotation_x = stream.readUnsignedShort();
+      } else if (opcode == 7) {
+         this.translate_x = stream.readUnsignedShort();
+         if (this.translate_x > 32767) {
+            this.translate_x -= 65536;
          }
-      } else if (var2 == 8) {
-         this.offsetY2d = var1.readUnsignedShort();
-         if (this.offsetY2d > 32767) {
-            this.offsetY2d -= 65536;
+      } else if (opcode == 8) {
+         this.translate_yz = stream.readUnsignedShort();
+         if (this.translate_yz > 32767) {
+            this.translate_yz -= 65536;
          }
-      } else if (var2 == 9) {
-         var1.readStringCp1252NullTerminated();
-      } else if (var2 == 11) {
+      } else if (opcode == 9) {
+         stream.readStringCp1252NullTerminated();
+      } else if (opcode == 11) {
          this.isStackable = 1;
-      } else if (var2 == 12) {
-         this.price = var1.readInt();
-      } else if (var2 == 13) {
-         this.maleModel = var1.readUnsignedByte();
-      } else if (var2 == 14) {
-         this.maleModel1 = var1.readUnsignedByte();
-      } else if (var2 == 16) {
+      } else if (opcode == 12) {
+         this.value = stream.readInt();
+      } else if (opcode == 13) {
+         this.opcode13 = stream.readUnsignedByte();
+      } else if (opcode == 14) {
+         this.opcode14 = stream.readUnsignedByte();
+      } else if (opcode == 16) {
          this.isMembersOnly = true;
-      } else if (var2 == 23) {
-         this.femaleModel = var1.readUnsignedShort();
-         this.femaleOffset = var1.readUnsignedByte();
-      } else if (var2 == 24) {
-         this.femaleModel1 = var1.readUnsignedShort();
-      } else if (var2 == 25) {
-         this.maleHeadModel = var1.readUnsignedShort();
-         this.field2232 = var1.readUnsignedByte();
-      } else if (var2 == 26) {
-         this.maleHeadModel2 = var1.readUnsignedShort();
-      } else if (var2 == 27) {
-         this.maleModel2 = var1.readUnsignedByte();
-      } else if (var2 >= 30 && var2 < 35) {
-         this.groundActions[var2 - 30] = var1.readStringCp1252NullTerminated();
-         if (this.groundActions[var2 - 30].equalsIgnoreCase("Hidden")) {
-            this.groundActions[var2 - 30] = null;
+      } else if (opcode == 23) {
+         this.equipped_model_male_1 = stream.readUnsignedShort();
+         this.equipped_model_male_translation_y = stream.readUnsignedByte();
+      } else if (opcode == 24) {
+         this.equipped_model_male_2 = stream.readUnsignedShort();
+      } else if (opcode == 25) {
+         this.equipped_model_female_1 = stream.readUnsignedShort();
+         this.equipped_model_female_translation_y = stream.readUnsignedByte();
+      } else if (opcode == 26) {
+         this.equipped_model_female_2 = stream.readUnsignedShort();
+      } else if (opcode == 27) {
+         this.opcode27 = stream.readUnsignedByte();
+      } else if (opcode >= 30 && opcode < 35) {
+         this.groundActions[opcode - 30] = stream.readStringCp1252NullTerminated();
+         if (this.groundActions[opcode - 30].equalsIgnoreCase("Hidden")) {
+            this.groundActions[opcode - 30] = null;
          }
-      } else if (var2 >= 35 && var2 < 40) {
-         this.inventoryActions[var2 - 35] = var1.readStringCp1252NullTerminated();
+      } else if (opcode >= 35 && opcode < 40) {
+         this.inventoryActions[opcode - 35] = stream.readStringCp1252NullTerminated();
       } else {
          int var3;
          int var4;
-         if (var2 == 40) {
-            var3 = var1.readUnsignedByte();
+         if (opcode == 40) {
+            var3 = stream.readUnsignedByte();
             this.recolorFrom = new short[var3];
             this.recolorTo = new short[var3];
 
             for(var4 = 0; var4 < var3; ++var4) {
-               this.recolorFrom[var4] = (short)var1.readUnsignedShort();
-               this.recolorTo[var4] = (short)var1.readUnsignedShort();
+               this.recolorFrom[var4] = (short)stream.readUnsignedShort();
+               this.recolorTo[var4] = (short)stream.readUnsignedShort();
             }
-         } else if (var2 == 41) {
-            var3 = var1.readUnsignedByte();
+         } else if (opcode == 41) {
+            var3 = stream.readUnsignedByte();
             this.retextureFrom = new short[var3];
             this.retextureTo = new short[var3];
 
             for(var4 = 0; var4 < var3; ++var4) {
-               this.retextureFrom[var4] = (short)var1.readUnsignedShort();
-               this.retextureTo[var4] = (short)var1.readUnsignedShort();
+               this.retextureFrom[var4] = (short)stream.readUnsignedShort();
+               this.retextureTo[var4] = (short)stream.readUnsignedShort();
             }
-         } else if (var2 == 42) {
-            this.shiftClickIndex = var1.readByte();
-         } else if (var2 == 65) {
+         } else if (opcode == 42) {
+            this.shiftClickIndex = stream.readByte();
+         } else if (opcode == 65) {
             this.isTradable = true;
-         } else if (var2 == 75) {
-            this.field2249 = var1.readShort();
-         } else if (var2 == 78) {
-            this.femaleModel2 = var1.readUnsignedShort();
-         } else if (var2 == 79) {
-            this.femaleHeadModel = var1.readUnsignedShort();
-         } else if (var2 == 90) {
-            this.femaleHeadModel2 = var1.readUnsignedShort();
-         } else if (var2 == 91) {
-            this.field2237 = var1.readUnsignedShort();
-         } else if (var2 == 92) {
-            this.field2236 = var1.readUnsignedShort();
-         } else if (var2 == 93) {
-            this.field2218 = var1.readUnsignedShort();
-         } else if (var2 == 94) {
-            var1.readUnsignedShort();
-         } else if (var2 == 95) {
-            this.zan2d = var1.readUnsignedShort();
-         } else if (var2 == 97) {
-            this.note = var1.readUnsignedShort();
-         } else if (var2 == 98) {
-            this.noteTemplate = var1.readUnsignedShort();
-         } else if (var2 >= 100 && var2 < 110) {
-            if (this.countobj == null) {
-               this.countobj = new int[10];
-               this.countco = new int[10];
+         } else if (opcode == 75) {
+            this.opcode75 = stream.readShort();
+         } else if (opcode == 78) {
+            this.equipped_model_male_3 = stream.readUnsignedShort();
+         } else if (opcode == 79) {
+            this.equipped_model_female_3 = stream.readUnsignedShort();
+         } else if (opcode == 90) {
+            this.equipped_model_male_dialogue_1 = stream.readUnsignedShort();
+         } else if (opcode == 91) {
+            this.equipped_model_female_dialogue_1 = stream.readUnsignedShort();
+         } else if (opcode == 92) {
+            this.equipped_model_male_dialogue_2 = stream.readUnsignedShort();
+         } else if (opcode == 93) {
+            this.equipped_model_female_dialogue_2 = stream.readUnsignedShort();
+         } else if (opcode == 94) {
+            stream.readUnsignedShort();
+         } else if (opcode == 95) {
+            this.rotation_z = stream.readUnsignedShort();
+         } else if (opcode == 97) {
+            this.note = stream.readUnsignedShort();
+         } else if (opcode == 98) {
+            this.noteTemplate = stream.readUnsignedShort();
+         } else if (opcode >= 100 && opcode < 110) {
+            if (this.stack_variant_id == null) {
+               this.stack_variant_id = new int[10];
+               this.stack_variant_size = new int[10];
             }
 
-            this.countobj[var2 - 100] = var1.readUnsignedShort();
-            this.countco[var2 - 100] = var1.readUnsignedShort();
-         } else if (var2 == 110) {
-            this.resizeX = var1.readUnsignedShort();
-         } else if (var2 == 111) {
-            this.resizeY = var1.readUnsignedShort();
-         } else if (var2 == 112) {
-            this.resizeZ = var1.readUnsignedShort();
-         } else if (var2 == 113) {
-            this.field2238 = var1.readByte();
-         } else if (var2 == 114) {
-            this.field2239 = var1.readByte() * 5;
-         } else if (var2 == 115) {
-            this.team = var1.readUnsignedByte();
-         } else if (var2 == 139) {
-            this.unnotedId = var1.readUnsignedShort();
-         } else if (var2 == 140) {
-            this.notedId = var1.readUnsignedShort();
-         } else if (var2 == 148) {
-            this.placeholder = var1.readUnsignedShort();
-         } else if (var2 == 149) {
-            this.placeholderTemplate = var1.readUnsignedShort();
-         } else if (var2 == 249) {
-            this.params = ReflectionCheck.readStringIntParameters(var1, this.params);
+            this.stack_variant_id[opcode - 100] = stream.readUnsignedShort();
+            this.stack_variant_size[opcode - 100] = stream.readUnsignedShort();
+         } else if (opcode == 110) {
+            this.model_scale_x = stream.readUnsignedShort();
+         } else if (opcode == 111) {
+            this.model_scale_y = stream.readUnsignedShort();
+         } else if (opcode == 112) {
+            this.model_scale_z = stream.readUnsignedShort();
+         } else if (opcode == 113) {
+            this.ambient = stream.readByte();
+         } else if (opcode == 114) {
+            this.contrast = stream.readByte() * 5;
+         } else if (opcode == 115) {
+            this.team = stream.readUnsignedByte();
+         } else if (opcode == 139) {
+            this.unnotedId = stream.readUnsignedShort();
+         } else if (opcode == 140) {
+            this.notedId = stream.readUnsignedShort();
+         } else if (opcode == 148) {
+            this.placeholder = stream.readUnsignedShort();
+         } else if (opcode == 149) {
+            this.placeholderTemplate = stream.readUnsignedShort();
+         } else if (opcode == 249) {
+            this.params = ReflectionCheck.readStringIntParameters(stream, this.params);
          }
       }
 
    }
 
    void genCert(ItemComposition var1, ItemComposition var2) {
-      this.model = var1.model;
-      this.zoom2d = var1.zoom2d;
-      this.xan2d = var1.xan2d;
-      this.yan2d = var1.yan2d;
-      this.zan2d = var1.zan2d;
-      this.offsetX2d = var1.offsetX2d;
-      this.offsetY2d = var1.offsetY2d;
+      this.inventory_model = var1.inventory_model;
+      this.model_zoom = var1.model_zoom;
+      this.rotation_y = var1.rotation_y;
+      this.rotation_x = var1.rotation_x;
+      this.rotation_z = var1.rotation_z;
+      this.translate_x = var1.translate_x;
+      this.translate_yz = var1.translate_yz;
       this.recolorFrom = var1.recolorFrom;
       this.recolorTo = var1.recolorTo;
       this.retextureFrom = var1.retextureFrom;
       this.retextureTo = var1.retextureTo;
       this.name = var2.name;
       this.isMembersOnly = var2.isMembersOnly;
-      this.price = var2.price;
+      this.value = var2.value;
       this.isStackable = 1;
    }
 
    void genBought(ItemComposition var1, ItemComposition var2) {
-      this.model = var1.model;
-      this.zoom2d = var1.zoom2d;
-      this.xan2d = var1.xan2d;
-      this.yan2d = var1.yan2d;
-      this.zan2d = var1.zan2d;
-      this.offsetX2d = var1.offsetX2d;
-      this.offsetY2d = var1.offsetY2d;
+      this.inventory_model = var1.inventory_model;
+      this.model_zoom = var1.model_zoom;
+      this.rotation_y = var1.rotation_y;
+      this.rotation_x = var1.rotation_x;
+      this.rotation_z = var1.rotation_z;
+      this.translate_x = var1.translate_x;
+      this.translate_yz = var1.translate_yz;
       this.recolorFrom = var2.recolorFrom;
       this.recolorTo = var2.recolorTo;
       this.retextureFrom = var2.retextureFrom;
@@ -252,22 +252,22 @@ public class ItemComposition extends DualNode {
       this.name = var2.name;
       this.isMembersOnly = var2.isMembersOnly;
       this.isStackable = var2.isStackable;
-      this.maleModel = var2.maleModel;
-      this.maleModel1 = var2.maleModel1;
-      this.maleModel2 = var2.maleModel2;
-      this.femaleModel = var2.femaleModel;
-      this.femaleModel1 = var2.femaleModel1;
-      this.femaleModel2 = var2.femaleModel2;
-      this.maleHeadModel = var2.maleHeadModel;
-      this.maleHeadModel2 = var2.maleHeadModel2;
-      this.femaleHeadModel = var2.femaleHeadModel;
-      this.femaleHeadModel2 = var2.femaleHeadModel2;
-      this.field2236 = var2.field2236;
-      this.field2237 = var2.field2237;
-      this.field2218 = var2.field2218;
+      this.opcode13 = var2.opcode13;
+      this.opcode14 = var2.opcode14;
+      this.opcode27 = var2.opcode27;
+      this.equipped_model_male_1 = var2.equipped_model_male_1;
+      this.equipped_model_male_2 = var2.equipped_model_male_2;
+      this.equipped_model_male_3 = var2.equipped_model_male_3;
+      this.equipped_model_female_1 = var2.equipped_model_female_1;
+      this.equipped_model_female_2 = var2.equipped_model_female_2;
+      this.equipped_model_female_3 = var2.equipped_model_female_3;
+      this.equipped_model_male_dialogue_1 = var2.equipped_model_male_dialogue_1;
+      this.equipped_model_male_dialogue_2 = var2.equipped_model_male_dialogue_2;
+      this.equipped_model_female_dialogue_1 = var2.equipped_model_female_dialogue_1;
+      this.equipped_model_female_dialogue_2 = var2.equipped_model_female_dialogue_2;
       this.team = var2.team;
       this.groundActions = var2.groundActions;
-      this.field2249 = var2.field2249;
+      this.opcode75 = var2.opcode75;
       this.inventoryActions = new String[5];
       if (var2.inventoryActions != null) {
          for(int var3 = 0; var3 < 4; ++var3) {
@@ -276,36 +276,36 @@ public class ItemComposition extends DualNode {
       }
 
       this.inventoryActions[4] = "Discard";
-      this.price = 0;
+      this.value = 0;
    }
 
    void genPlaceholder(ItemComposition var1, ItemComposition var2) {
-      this.model = var1.model;
-      this.zoom2d = var1.zoom2d;
-      this.xan2d = var1.xan2d;
-      this.yan2d = var1.yan2d;
-      this.zan2d = var1.zan2d;
-      this.offsetX2d = var1.offsetX2d;
-      this.offsetY2d = var1.offsetY2d;
+      this.inventory_model = var1.inventory_model;
+      this.model_zoom = var1.model_zoom;
+      this.rotation_y = var1.rotation_y;
+      this.rotation_x = var1.rotation_x;
+      this.rotation_z = var1.rotation_z;
+      this.translate_x = var1.translate_x;
+      this.translate_yz = var1.translate_yz;
       this.recolorFrom = var1.recolorFrom;
       this.recolorTo = var1.recolorTo;
       this.retextureFrom = var1.retextureFrom;
       this.retextureTo = var1.retextureTo;
       this.isStackable = var1.isStackable;
       this.name = var2.name;
-      this.price = 0;
+      this.value = 0;
       this.isMembersOnly = false;
       this.isTradable = false;
    }
 
    public final ModelData getModelData(int var1) {
       int var3;
-      if (this.countobj != null && var1 > 1) {
+      if (this.stack_variant_id != null && var1 > 1) {
          int var2 = -1;
 
          for(var3 = 0; var3 < 10; ++var3) {
-            if (var1 >= this.countco[var3] && this.countco[var3] != 0) {
-               var2 = this.countobj[var3];
+            if (var1 >= this.stack_variant_size[var3] && this.stack_variant_size[var3] != 0) {
+               var2 = this.stack_variant_id[var3];
             }
          }
 
@@ -314,12 +314,12 @@ public class ItemComposition extends DualNode {
          }
       }
 
-      ModelData var4 = ModelData.ModelData_get(ItemDefinition_modelArchive, this.model, 0);
+      ModelData var4 = ModelData.ModelData_get(ItemDefinition_modelArchive, this.inventory_model, 0);
       if (var4 == null) {
          return null;
       } else {
-         if (this.resizeX != 128 || this.resizeY != 128 || this.resizeZ != 128) {
-            var4.resize(this.resizeX, this.resizeY, this.resizeZ);
+         if (this.model_scale_x != 128 || this.model_scale_y != 128 || this.model_scale_z != 128) {
+            var4.resize(this.model_scale_x, this.model_scale_y, this.model_scale_z);
          }
 
          if (this.recolorFrom != null) {
@@ -339,12 +339,12 @@ public class ItemComposition extends DualNode {
    }
 
    public final Model getModel(int var1) {
-      if (this.countobj != null && var1 > 1) {
+      if (this.stack_variant_id != null && var1 > 1) {
          int var2 = -1;
 
          for(int var3 = 0; var3 < 10; ++var3) {
-            if (var1 >= this.countco[var3] && this.countco[var3] != 0) {
-               var2 = this.countobj[var3];
+            if (var1 >= this.stack_variant_size[var3] && this.stack_variant_size[var3] != 0) {
+               var2 = this.stack_variant_id[var3];
             }
          }
 
@@ -357,12 +357,12 @@ public class ItemComposition extends DualNode {
       if (var5 != null) {
          return var5;
       } else {
-         ModelData var6 = ModelData.ModelData_get(ItemDefinition_modelArchive, this.model, 0);
+         ModelData var6 = ModelData.ModelData_get(ItemDefinition_modelArchive, this.inventory_model, 0);
          if (var6 == null) {
             return null;
          } else {
-            if (this.resizeX != 128 || this.resizeY != 128 || this.resizeZ != 128) {
-               var6.resize(this.resizeX, this.resizeY, this.resizeZ);
+            if (this.model_scale_x != 128 || this.model_scale_y != 128 || this.model_scale_z != 128) {
+               var6.resize(this.model_scale_x, this.model_scale_y, this.model_scale_z);
             }
 
             int var4;
@@ -378,7 +378,7 @@ public class ItemComposition extends DualNode {
                }
             }
 
-            var5 = var6.toModel(this.field2238 + 64, this.field2239 + 768, -50, -10, -50);
+            var5 = var6.toModel(this.ambient + 64, this.contrast + 768, -50, -10, -50);
             var5.isSingleTile = true;
             ItemDefinition_cachedModels.put(var5, (long)this.id);
             return var5;
@@ -387,12 +387,12 @@ public class ItemComposition extends DualNode {
    }
 
    public ItemComposition getCountObj(int var1) {
-      if (this.countobj != null && var1 > 1) {
+      if (this.stack_variant_id != null && var1 > 1) {
          int var2 = -1;
 
          for(int var3 = 0; var3 < 10; ++var3) {
-            if (var1 >= this.countco[var3] && this.countco[var3] != 0) {
-               var2 = this.countobj[var3];
+            if (var1 >= this.stack_variant_size[var3] && this.stack_variant_size[var3] != 0) {
+               var2 = this.stack_variant_id[var3];
             }
          }
 
@@ -405,13 +405,13 @@ public class ItemComposition extends DualNode {
    }
 
    public final boolean method3957(int var1) {
-      int var2 = this.femaleModel;
-      int var3 = this.femaleModel1;
-      int var4 = this.femaleModel2;
+      int var2 = this.equipped_model_male_1;
+      int var3 = this.equipped_model_male_2;
+      int var4 = this.equipped_model_male_3;
       if (var1 == 1) {
-         var2 = this.maleHeadModel;
-         var3 = this.maleHeadModel2;
-         var4 = this.femaleHeadModel;
+         var2 = this.equipped_model_female_1;
+         var3 = this.equipped_model_female_2;
+         var4 = this.equipped_model_female_3;
       }
 
       if (var2 == -1) {
@@ -435,13 +435,13 @@ public class ItemComposition extends DualNode {
    }
 
    public final ModelData method3986(int var1) {
-      int var2 = this.femaleModel;
-      int var3 = this.femaleModel1;
-      int var4 = this.femaleModel2;
+      int var2 = this.equipped_model_male_1;
+      int var3 = this.equipped_model_male_2;
+      int var4 = this.equipped_model_male_3;
       if (var1 == 1) {
-         var2 = this.maleHeadModel;
-         var3 = this.maleHeadModel2;
-         var4 = this.femaleHeadModel;
+         var2 = this.equipped_model_female_1;
+         var3 = this.equipped_model_female_2;
+         var4 = this.equipped_model_female_3;
       }
 
       if (var2 == -1) {
@@ -460,12 +460,12 @@ public class ItemComposition extends DualNode {
             }
          }
 
-         if (var1 == 0 && this.femaleOffset != 0) {
-            var5.changeOffset(0, this.femaleOffset, 0);
+         if (var1 == 0 && this.equipped_model_male_translation_y != 0) {
+            var5.changeOffset(0, this.equipped_model_male_translation_y, 0);
          }
 
-         if (var1 == 1 && this.field2232 != 0) {
-            var5.changeOffset(0, this.field2232, 0);
+         if (var1 == 1 && this.equipped_model_female_translation_y != 0) {
+            var5.changeOffset(0, this.equipped_model_female_translation_y, 0);
          }
 
          int var9;
@@ -485,12 +485,12 @@ public class ItemComposition extends DualNode {
       }
    }
 
-   public final boolean method3959(int var1) {
-      int var2 = this.femaleHeadModel2;
-      int var3 = this.field2236;
-      if (var1 == 1) {
-         var2 = this.field2237;
-         var3 = this.field2218;
+   public final boolean isDialogueModelCached(int gender) {
+      int var2 = this.equipped_model_male_dialogue_1;
+      int var3 = this.equipped_model_male_dialogue_2;
+      if (gender == 1) {
+         var2 = this.equipped_model_female_dialogue_1;
+         var3 = this.equipped_model_female_dialogue_2;
       }
 
       if (var2 == -1) {
@@ -509,12 +509,12 @@ public class ItemComposition extends DualNode {
       }
    }
 
-   public final ModelData method3960(int var1) {
-      int var2 = this.femaleHeadModel2;
-      int var3 = this.field2236;
-      if (var1 == 1) {
-         var2 = this.field2237;
-         var3 = this.field2218;
+   public final ModelData getDialogueModel(int gender) {
+      int var2 = this.equipped_model_male_dialogue_1;
+      int var3 = this.equipped_model_male_dialogue_2;
+      if (gender == 1) {
+         var2 = this.equipped_model_female_dialogue_1;
+         var3 = this.equipped_model_female_dialogue_2;
       }
 
       if (var2 == -1) {
@@ -877,13 +877,13 @@ public class ItemComposition extends DualNode {
 
    public static void method4019(Widget var0, int var1) {
       ItemComposition var2 = class300.ItemDefinition_get(var1);
-      var0.field3631.equipment[var2.maleModel] = var1 + 512;
-      if (var2.maleModel1 != -1) {
-         var0.field3631.equipment[var2.maleModel1] = 0;
+      var0.field3631.equipment[var2.opcode13] = var1 + 512;
+      if (var2.opcode14 != -1) {
+         var0.field3631.equipment[var2.opcode14] = 0;
       }
 
-      if (var2.maleModel2 != -1) {
-         var0.field3631.equipment[var2.maleModel2] = 0;
+      if (var2.opcode27 != -1) {
+         var0.field3631.equipment[var2.opcode27] = 0;
       }
 
       var0.field3631.method6021();
