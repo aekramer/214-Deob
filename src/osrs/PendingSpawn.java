@@ -1,4 +1,5 @@
 package osrs;
+
 import java.awt.Component;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -100,8 +101,8 @@ public final class PendingSpawn extends Node {
 
                   for(int var15 = 0; var15 < var14.length; ++var15) {
                      Method var16 = var14[var15];
-                     /*if (Reflection.getMethodName(var16).equals(var6)) {
-                        Class[] var17 = Reflection.getParameterTypes(var16);
+                     if (var16.getName().equals(var6)) { //Reflection.getMethodName(var16).equals(var6)
+                        Class[] var17 = var16.getParameterTypes(); //Reflection.getParameterTypes(var16);
                         if (var17.length == var21.length) {
                            boolean var18 = true;
 
@@ -116,7 +117,8 @@ public final class PendingSpawn extends Node {
                               var2.methods[var3] = var16;
                            }
                         }
-                     }*/
+                     }
+                     
                   }
 
                   var2.arguments[var3] = var10;
@@ -135,7 +137,7 @@ public final class PendingSpawn extends Node {
                   throw new SecurityException();
                }
 
-               //var2.fields[var3] = Reflection.findField(class28.loadClassFromDescriptor(var5), var6);
+               var2.fields[var3] = class28.loadClassFromDescriptor(var5).getDeclaredField(var6); //Reflection.findField(class28.loadClassFromDescriptor(var5), var6);
             }
          } catch (ClassNotFoundException var24) {
             var2.creationErrors[var3] = -1;

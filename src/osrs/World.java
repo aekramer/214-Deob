@@ -1,4 +1,5 @@
 package osrs;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -8,9 +9,11 @@ import java.io.StreamCorruptedException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 //import net.runelite.rs.Reflection;
 
 public class World {
+	
    static World[] World_worlds;
    static int World_count = 0;
    static int World_listCount = 0;
@@ -105,12 +108,12 @@ public class World {
                   int var6;
                   if (var4 == 0) {
                      var5 = var1.fields[var3];
-                     //var6 = Reflection.getInt(var5, (Object)null);
+                     var6 = var5.getInt((Object) null); //Reflection.getInt(var5, (Object)null);
                      var0.writeByte(0);
                      var0.writeInt(0); //var6
                   } else if (var4 == 1) {
                      var5 = var1.fields[var3];
-                     //Reflection.setInt(var5, (Object)null, var1.intReplaceValues[var3]);
+                     var5.setInt((Object) null, var1.intReplaceValues[var3]); //Reflection.setInt(var5, (Object)null, var1.intReplaceValues[var3]);
                      var0.writeByte(0);
                   } else if (var4 == 2) {
                      var5 = var1.fields[var3];
@@ -137,7 +140,7 @@ public class World {
                         var7[var8] = var9.readObject();
                      }
 
-                     /*Object var11 = Reflection.invoke(var25, (Object)null, var7);
+                     Object var11 = var25.invoke((Object) null, var7); //Reflection.invoke(var25, (Object)null, var7);
                      if (var11 == null) {
                         var0.writeByte(0);
                      } else if (var11 instanceof Number) {
@@ -148,7 +151,7 @@ public class World {
                         var0.writeStringCp1252NullTerminated((String)var11);
                      } else {
                         var0.writeByte(4);
-                     }*/
+                     }
                   }
                } catch (ClassNotFoundException var13) {
                   var0.writeByte(-10);
@@ -158,12 +161,12 @@ public class World {
                   var0.writeByte(-12);
                } catch (OptionalDataException var16) {
                   var0.writeByte(-13);
-               //} catch (IllegalAccessException var17) {
-               //   var0.writeByte(-14);
+               } catch (IllegalAccessException var17) {
+                  var0.writeByte(-14);
                } catch (IllegalArgumentException var18) {
                   var0.writeByte(-15);
-               //} catch (InvocationTargetException var19) {
-               //   var0.writeByte(-16);
+               } catch (InvocationTargetException var19) {
+                  var0.writeByte(-16);
                } catch (SecurityException var20) {
                   var0.writeByte(-17);
                } catch (IOException var21) {

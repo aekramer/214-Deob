@@ -22,7 +22,7 @@ public class class28 {
       } else if (var0.equals("C")) {
          return Character.TYPE;
       } else {
-         return var0.equals("void") ? Void.TYPE : null; //Reflection.findClass(var0);
+         return var0.equals("void") ? Void.TYPE : Class.forName(var0); //Reflection.findClass(var0);
       }
    }
 }
